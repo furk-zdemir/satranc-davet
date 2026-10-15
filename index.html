@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satranç daveti</title>
+<meta property="og:title" content="♟️ Satranç daveti">
+<meta property="og:description" content="Arkadaşın seni Chess – Following The Master'da oyuna çağırıyor.">
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: #4A4A4A; color: #FCEFE3; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .card { max-width: 360px; margin: 16px; padding: 28px 22px; background: #3A3A3A; border-radius: 24px; text-align: center; }
+  h1 { font-size: 24px; margin: 8px 0 6px; color: #fff; }
+  p { line-height: 1.45; margin: 8px 0; }
+  .code { font-size: 30px; letter-spacing: 4px; color: #F6B93B; font-weight: 800; margin: 14px 0; }
+  a.btn { display: block; margin-top: 16px; padding: 15px; border-radius: 999px; background: #0F6A0F; color: #fff;
+          font-weight: 800; text-decoration: none; font-size: 18px; }
+  small { color: #BDBDBD; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div style="font-size:52px">♟️</div>
+  <h1>Satranç daveti</h1>
+  <p>Arkadaşın seni oyuna çağırıyor.</p>
+  <div class="code" id="code"></div>
+  <a class="btn" id="open" href="#">Uygulamada aç ve oyna</a>
+  <p><small>Açılmazsa uygulamada <b>Oyna › Arkadaşlarınla oyna › Kodla katıl</b> bölümüne yukarıdaki kodu yaz.</small></p>
+</div>
+<script>
+  var code = (new URLSearchParams(location.search).get("k") || "").replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+  document.getElementById("code").textContent = code;
+  var pkg = "com.followingthemaster.chess";
+  var store = "https://play.google.com/store/apps/details?id=" + pkg;
+  var intent = "intent://invite/" + code + "#Intent;scheme=" + pkg + ";package=" + pkg +
+               ";S.browser_fallback_url=" + encodeURIComponent(store) + ";end";
+  var link = /android/i.test(navigator.userAgent) ? intent : pkg + "://invite/" + code;
+  document.getElementById("open").href = link;
+  if (code) { setTimeout(function () { location.href = link; }, 300); }
+</script>
+</body>
+</html>
